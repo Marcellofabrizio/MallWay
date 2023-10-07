@@ -16,7 +16,6 @@ const LATITUDE = -29.17721;
 const LONGITUDE = -51.21906;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-const SPACE = 0.01;
 
 class Callouts extends React.Component<any, any> {
   marker1: any;
@@ -77,6 +76,7 @@ class Callouts extends React.Component<any, any> {
         <MapView
           provider={this.props.provider}
           style={styles.map}
+          customMapStyle={mapStyle}
           initialRegion={region}
           camera={{
             center: {
@@ -203,4 +203,30 @@ const styles = StyleSheet.create({
   },
 });
 
+const mapStyle = [
+  {
+    elementType: 'labels',
+    stylers: [
+      {
+        visibility: 'off',
+      },
+    ],
+  },
+  {
+    featureType: 'administrative.land_parcel',
+    stylers: [
+      {
+        visibility: 'off',
+      },
+    ],
+  },
+  {
+    featureType: 'administrative.neighborhood',
+    stylers: [
+      {
+        visibility: 'off',
+      },
+    ],
+  },
+];
 export default Callouts;
