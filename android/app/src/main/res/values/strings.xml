@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MallWay</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBIDdBrdvwMR94PPFBNKJSGuRcu3uKYO2E</string>
+</resources>
