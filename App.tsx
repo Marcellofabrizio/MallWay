@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'flex-end',
     alignItems: 'center',
+    backgroundColor: '#fef5ec',
   },
   scrollview: {
     alignItems: 'center',
@@ -111,22 +112,25 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
     marginTop: 10,
-    backgroundColor: 'rgba(220,220,220,0.7)',
+    backgroundColor: '#f85f6a',
     paddingHorizontal: 18,
     paddingVertical: 12,
     borderRadius: 20,
+  },
+  buttonText: {
+    color: 'white',
   },
   back: {
     position: 'absolute',
     top: 20,
     left: 12,
-    backgroundColor: 'rgba(255,255,255,0.4)',
-    padding: 12,
+    backgroundColor: '#f85f6a',
+    padding: 8,
     borderRadius: 20,
-    width: 80,
+    width: 70,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  backButton: {fontWeight: 'bold', fontSize: 30},
+  backButton: {fontWeight: 'bold', fontSize: 30, color: 'white', bottom: 5},
   googleSwitch: {marginBottom: 10},
 });
