@@ -103,6 +103,26 @@ class Callouts extends React.Component<any, any> {
     return markers;
   }
 
+  getTakeMeThereButton() {
+    if (this.state.selectedMarker >= 0) {
+      return (
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={[styles.bubble, styles.button]}
+            onPress={() =>
+              this.takeThere(
+                this.state.markers[this.state.selectedMarker].coordinate,
+              )
+            }>
+            <Text style={styles.buttonText}>
+              Clique para ver as rotas disponíveis
+            </Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+  }
+
   show() {
     this.marker1.showCallout();
   }
@@ -132,21 +152,17 @@ class Callouts extends React.Component<any, any> {
           zoomTapEnabled={false}>
           {this.getMarkers()}
         </MapView>
-        <View style={styles.buttonContainer}>
-          <View style={styles.bubble}>
-            <Text>Tap on markers to see different Callout</Text>
-          </View>
-        </View>
+        {this.getTakeMeThereButton()}
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={() => this.show()}
             style={[styles.bubble, styles.button]}>
-            <Text>Show</Text>
+            <Text style={styles.buttonText}>Mostrar</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => this.hide()}
             style={[styles.bubble, styles.button]}>
-            <Text>Hide</Text>
+            <Text style={styles.buttonText}>Esconder</Text>
           </TouchableOpacity>
         </View>
       </View>
