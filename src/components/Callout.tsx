@@ -5,7 +5,7 @@ import {
   Text,
   Dimensions,
   TouchableOpacity,
-  Alert,
+  Linking,
 } from 'react-native';
 import MapView, {Marker, Callout} from 'react-native-maps';
 import CustomCallout from './CustomCallout';
@@ -124,15 +124,28 @@ class Callouts extends React.Component<any, any> {
   }
 
   show() {
-    this.marker1.showCallout();
+    if (this.state.selectedMarker >= 0) {
+      this.state.markersRef[this.state.selectedMarker].showCallout();
+    }
   }
 
   hide() {
-    this.marker1.hideCallout();
+    if (this.state.selectedMarker >= 0) {
+      this.state.markersRef[this.state.selectedMarker].hideCallout();
+    }
+  }
+
+  takeThere(coordinates: any) {
+    console.log(
+      `google.navigation:q=${coordinates.latitude},${coordinates.longitude}`,
+    );
+    Linking.openURL(
+      `google.navigation:q=${coordinates.latitude},${coordinates.longitude}`,
+    );
   }
 
   render() {
-    const {region, markers} = this.state;
+    const {region} = this.state;
     return (
       <View style={styles.container}>
         <MapView
