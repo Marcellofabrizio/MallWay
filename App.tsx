@@ -13,14 +13,14 @@ import Callouts from './src/components/Callout';
 const IOS = Platform.OS === 'ios';
 const ANDROID = Platform.OS === 'android';
 
-function makeExampleMapper(useGoogleMaps: boolean) {
+function makeMallMapper(useGoogleMaps: boolean) {
   if (useGoogleMaps) {
-    return (example: any) => [
-      example[0],
-      [example[1], example[3]].filter(Boolean).join(' '),
+    return (mall: any) => [
+      mall[0],
+      [mall[1], mall[3]].filter(Boolean).join(' '),
     ];
   }
-  return (example: any) => example;
+  return (mall: any) => mall;
 }
 
 export default class App extends React.Component<any, any> {
@@ -33,13 +33,13 @@ export default class App extends React.Component<any, any> {
     };
   }
 
-  renderExample([Component, title]: any) {
+  renderMall([Component, title]: any) {
     return (
       <TouchableOpacity
         key={title}
         style={styles.button}
         onPress={() => this.setState({Component})}>
-        <Text>{title}</Text>
+        <Text style={styles.buttonText}>{title}</Text>
       </TouchableOpacity>
     );
   }
@@ -67,7 +67,7 @@ export default class App extends React.Component<any, any> {
     );
   }
 
-  renderExamples(examples: any) {
+  renderMalls(malls: any) {
     const {Component} = this.state;
 
     return (
@@ -80,7 +80,7 @@ export default class App extends React.Component<any, any> {
             contentContainerStyle={styles.scrollview}
             showsVerticalScrollIndicator={false}>
             {IOS && this.renderGoogleSwitch()}
-            {examples.map((example: any) => this.renderExample(example))}
+            {malls.map((mall: any) => this.renderMall(mall))}
           </ScrollView>
         )}
       </View>
@@ -88,17 +88,12 @@ export default class App extends React.Component<any, any> {
   }
 
   render() {
-    return this.renderExamples(
-      [
-        // [<component>, <component description>, <Google compatible>, <Google add'l description>]
-        [Callouts, 'Custom Callouts', true],
-      ]
-        // Filter out examples that are not yet supported for Google Maps on iOS.
+    return this.renderMalls(
+      [[Callouts, 'Villagio - Caxias do Sul', true]]
         .filter(
-          example =>
-            ANDROID || (IOS && (example[2] || !this.state.useGoogleMaps)),
+          mall => ANDROID || (IOS && (mall[2] || !this.state.useGoogleMaps)),
         )
-        .map(makeExampleMapper(IOS && this.state.useGoogleMaps)),
+        .map(makeMallMapper(IOS && this.state.useGoogleMaps)),
     );
   }
 }
