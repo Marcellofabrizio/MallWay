@@ -156,8 +156,8 @@ class Callouts extends React.Component<any, any> {
 
 const styles = StyleSheet.create({
   customView: {
-    width: 140,
-    height: 140,
+    width: 170,
+    height: 180,
   },
   plainView: {
     width: 60,
@@ -186,11 +186,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     alignItems: 'center',
     marginHorizontal: 10,
+    backgroundColor: '#f85f6a',
+  },
+  buttonText: {
+    color: 'white',
   },
   buttonContainer: {
     flexDirection: 'row',
     marginVertical: 20,
-    backgroundColor: 'transparent',
   },
   calloutButton: {
     width: 'auto',
