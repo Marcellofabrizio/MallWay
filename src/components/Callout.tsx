@@ -21,6 +21,7 @@ class Callouts extends React.Component<any, any> {
   marker1: any;
   marker2: any;
   marker4: any;
+
   constructor(props: any) {
     super(props);
 
@@ -38,27 +39,68 @@ class Callouts extends React.Component<any, any> {
             latitude: -29.176628890815476,
             longitude: -51.22042990972908,
           },
+          store: 'Renner',
         },
         {
           coordinate: {
             latitude: -29.175821124613073,
             longitude: -51.22035479118406,
           },
+          store: 'McDonalds',
         },
         {
           coordinate: {
             latitude: -29.1771863838681,
             longitude: -51.21965500247566,
           },
+          store: 'GNC Cinemas',
         },
         {
           coordinate: {
             latitude: -29.176763517903705,
             longitude: -51.219020448335165,
           },
+          store: 'Decathlon',
         },
       ],
+      markersRef: [],
+      selectedMarker: undefined,
     };
+  }
+
+  getMarkers() {
+    let markers = [];
+
+    for (let i = 0; i < this.state.markers.length; i++) {
+      const coordinate = this.state.markers[i].coordinate;
+      const storeName = this.state.markers[i].store;
+      markers.push(
+        <Marker
+          coordinate={coordinate}
+          calloutOffset={{x: -8, y: 28}}
+          calloutAnchor={{x: 1, y: 0.4}}
+          ref={ref => {
+            this.state.markersRef.push(ref);
+          }}
+          onPress={_ => {
+            this.setState({
+              selectedMarker: i,
+            });
+          }}
+          key={i}>
+          <Callout alphaHitTest tooltip style={styles.customView}>
+            <CustomCallout>
+              <Text>{`${storeName}`}</Text>
+              <Text>{'Movimento: Pouco movimentado'}</Text>
+              <Text>{'Abre às: 8:30'}</Text>
+              <Text>{'Fecha às: 21:30'}</Text>
+            </CustomCallout>
+          </Callout>
+        </Marker>,
+      );
+    }
+
+    return markers;
   }
 
   show() {
@@ -88,48 +130,7 @@ class Callouts extends React.Component<any, any> {
             zoom: 17,
           }}
           zoomTapEnabled={false}>
-          <Marker
-            ref={ref => {
-              this.marker1 = ref;
-            }}
-            coordinate={markers[0].coordinate}
-            title="This is a native view"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation"
-          />
-          <Marker coordinate={markers[1].coordinate}>
-            <Callout style={styles.plainView}>
-              <View>
-                <Text>This is a plain view</Text>
-              </View>
-            </Callout>
-          </Marker>
-          <Marker
-            coordinate={markers[2].coordinate}
-            calloutOffset={{x: -8, y: 28}}
-            calloutAnchor={{x: 0.5, y: 0.4}}
-            ref={ref => {
-              this.marker2 = ref;
-            }}>
-            <Callout
-              alphaHitTest
-              tooltip
-              onPress={_ => {
-                Alert.alert('callout pressed');
-              }}
-              style={styles.customView}>
-              <CustomCallout>
-                <Text>{`This is a custom callout bubble view ${this.state.cnt}`}</Text>
-              </CustomCallout>
-            </Callout>
-          </Marker>
-          <Marker
-            ref={ref => {
-              this.marker4 = ref;
-            }}
-            coordinate={markers[3].coordinate}
-            title="You can also open this callout"
-            description="by pressing on transparent area of custom callout"
-          />
+          {this.getMarkers()}
         </MapView>
         <View style={styles.buttonContainer}>
           <View style={styles.bubble}>
